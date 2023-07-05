@@ -1,0 +1,188 @@
+html {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 14px;
+}
+
+body {
+  overflow-x: hidden;
+  color: rgb(29, 29, 31);
+  letter-spacing: -0.05em;
+  background: white;
+}
+
+.inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.lnb {
+  border-bottom: 1px solid #ddd;
+}
+
+.list-gnb,
+.list-lnb {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.list-gnb {
+  justify-content: space-between;
+  height: 44px;
+}
+
+.list-lnb {
+  height: 52px;
+}
+
+.list-lnb__item a {
+  /* a:not(.class)  */
+  margin-left: 2em;
+  font-size: 0.8rem;
+}
+
+.list-lnb__item-brand {
+  margin-right: auto;
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+
+.section-scroll {
+  padding-top: 50vh;
+}
+
+.box-text p:not(.text-desc) {
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+.text-heading {
+  font-weight: 900;
+  text-align: center;
+}
+
+.text-emphasis {
+  font-weight: 900;
+  color: rgb(29, 29, 31);
+}
+
+.pin {
+  width: 1px;
+  height: 100px;
+  background: rgb(29, 29, 31);
+}
+
+#section-scroll-1 .box-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3em;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+#section-scroll-1 .text-heading {
+  font-size: 4rem;
+}
+
+#section-scroll-2 .text-desc {
+  font-size: 1.2rem;
+  color: #888;
+}
+
+#section-scroll-2 .text-emphasis {
+  float: left;
+  margin-right: 0.2em;
+  /* 현재 폰트사이즈 0.2배 20% */
+  font-size: 3rem;
+}
+#section-scroll-3 .text-heading {
+  font-size: 3.5rem;
+}
+
+#section-scroll-3 .text-heading small {
+  display: block;
+  font-size: 1.5rem;
+  margin-bottom: 0.4em;
+}
+
+#section-scroll-3 .text-desc {
+  width: 50%;
+  font-weight: bold;
+}
+
+#section-scroll-4 .text-heading {
+  font-size: 2rem;
+  font-weight: normal;
+  text-align: left;
+  color: #888;
+}
+
+#section-scroll-4 .text-desc {
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 7rem;
+  background: darkorange;
+}
+
+.elemt-sticky {
+  display: none !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#show-scene-1 #section-scroll-1 .elemt-sticky,
+#show-scene-2 #section-scroll-2 .elemt-sticky,
+#show-scene-3 #section-scroll-3 .elemt-sticky,
+#show-scene-4 #section-scroll-4 .elemt-sticky {
+  display: block !important;
+}
+
+@media screen and (min-width: 1024px) {
+  #section-scroll-1 .text-heading {
+    font-size: 9vw;
+  }
+
+  #section-scroll-1 .box-text {
+    font-size: 4vw;
+  }
+
+  #section-scroll-2 .text-desc {
+    font-size: 2rem;
+  }
+
+  #section-scroll-2 .text-emphasis {
+    font-size: 6rem;
+  }
+
+  #section-scroll-3 .text-heading {
+    font-size: 6vw;
+  }
+
+  #section-scroll-3 .text-heading small {
+    font-size: 2vw;
+  }
+
+  #section-scroll-3 .text-desc {
+    width: 20%;
+  }
+
+  #section-scroll-4 .text-heading {
+    font-size: 4vw;
+  }
+
+  #section-scroll-4 .text-desc {
+    font-size: 2rem;
+  }
+}

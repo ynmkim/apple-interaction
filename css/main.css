@@ -103,6 +103,7 @@ body {
 #section-scroll-2 {
   padding: 80px 0;
 }
+
 #section-scroll-2 .text-desc {
   font-size: 1.2rem;
   color: #888;
@@ -113,6 +114,10 @@ body {
   margin-right: 0.2em;
   /* 현재 폰트사이즈 0.2배 20% */
   font-size: 3rem;
+}
+
+#section-scroll-3 .box-text-1 {
+  top: 40vh;
 }
 
 #section-scroll-3 .box-text-2 {
@@ -157,13 +162,14 @@ body {
   justify-content: center;
   align-items: center;
   height: 7rem;
-  background: darkorange;
+  background: black;
+  color: #fff;
 }
 
 .elemt-sticky {
   display: none !important;
   position: fixed;
-  /* top: 0; */
+  top: 0;
   left: 0;
   width: 100%;
   opacity: 0;
@@ -183,6 +189,10 @@ body {
 
   #section-scroll-1 .box-text {
     font-size: 4vw;
+  }
+
+  #section-scroll-2 {
+    padding: 100px 0;
   }
 
   #section-scroll-2 .text-desc {

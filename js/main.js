@@ -22,30 +22,27 @@
         text1_opacity_fadeOut: [1, 0, { start: 0.25, end: 0.3 }],
         text1_translateY_slideIn: [20, 0, { start: 0.1, end: 0.2 }],
         text1_translateY_slideOut: [0, -20, { start: 0.25, end: 0.3 }],
-
         text2_opacity_fadeIn: [0, 1, { start: 0.3, end: 0.4 }], // 30% ~ 40% 구간
         text2_opacity_fadeOut: [1, 0, { start: 0.45, end: 0.5 }],
         text2_translateY_slideIn: [20, 0, { start: 0.3, end: 0.4 }],
         text2_translateY_slideOut: [0, -20, { start: 0.45, end: 0.5 }],
-
         text3_opacity_fadeIn: [0, 1, { start: 0.5, end: 0.6 }], // 50% ~ 60% 구간
         text3_opacity_fadeOut: [1, 0, { start: 0.65, end: 0.7 }],
         text3_translateY_slideIn: [20, 0, { start: 0.5, end: 0.6 }],
         text3_translateY_slideOut: [0, -20, { start: 0.65, end: 0.7 }],
-
         text4_opacity_fadeIn: [0, 1, { start: 0.7, end: 0.8 }], // 70% ~ 80% 구간
         text4_opacity_fadeOut: [1, 0, { start: 0.85, end: 0.9 }],
         text4_translateY_slideIn: [20, 0, { start: 0.7, end: 0.8 }],
-        text4_translateY_slideOut: [0, -20, { start: 0.85, end: 0.9 }]
-           
+        text4_translateY_slideOut: [0, -20, { start: 0.85, end: 0.9 }]  
       }
     },
     {
       type: 'normal',
-      heightNum: 5, 
+      heightNum: 5, // type normal에서는 필요 없음
       scrollHeight: 0,
       objs: {
-        container: document.querySelector('#section-scroll-2')
+        container: document.querySelector('#section-scroll-2'),
+        content: document.querySelector('#scroll-section-2 .text-desc')
       }
     },
     {
@@ -53,7 +50,34 @@
       heightNum: 5, 
       scrollHeight: 0,
       objs: {
-        container: document.querySelector('#section-scroll-3')
+        container: document.querySelector('#section-scroll-3'),
+        text1: document.querySelector('#section-scroll-3 .box-text-1'),
+        text2: document.querySelector('#section-scroll-3 .box-text-2'),
+        text3: document.querySelector('#section-scroll-3 .box-text-3'),
+        pin1: document.querySelector('#section-scroll-3 .box-text-2 .pin'),
+        pin2: document.querySelector('#section-scroll-3 .box-text-3 .pin')
+      },
+      values: {
+        text1_opacity_fadeIn: [0, 1, { start: 0.15, end: 0.2 }], // 15% ~ 20% 구간
+        text1_opacity_fadeOut: [1, 0, { start: 0.3, end: 0.35 }],
+        text1_translateY_slideIn: [20, 0, { start: 0.15, end: 0.2 }],
+        text1_translateY_slideOut: [0, -20, { start: 0.3, end: 0.35 }],
+
+        text2_opacity_fadeIn: [0, 1, { start: 0.5, end: 0.55 }], // 50% ~ 55% 구간
+        text2_opacity_fadeOut: [1, 0, { start: 0.58, end: 0.63 }],
+        text2_translateY_slideIn: [30, 0, { start: 0.5, end: 0.55 }],
+        text2_translateY_slideOut: [0, -20, { start: 0.58, end: 0.63 }],
+        pin1_scaleY: [0.5, 1, { start: 0.5, end: 0.55 }],
+        pin1_opacity_fadeIn: [0, 1, { start: 0.5, end: 0.55 }],
+        pin1_opacity_fadeOut: [1, 0, { start: 0.58, end: 0.63 }],
+
+        text3_opacity_fadeIn: [0, 1, { start: 0.72, end: 0.77 }], // 72% ~ 77% 구간
+        text3_opacity_fadeOut: [1, 0, { start: 0.85, end: 0.9 }],
+        text3_translateY_slideIn: [30, 0, { start: 0.72, end: 0.77 }],
+        text3_translateY_slideOut: [0, -20, { start: 0.85, end: 0.9 }],
+        pin2_opacity_fadeIn: [0, 1, { start: 0.72, end: 0.77 }],
+        pin2_opacity_fadeOut: [1, 0, { start: 0.85, end: 0.9 }],
+        pin2_scaleY: [0.5, 1, { start: 0.72, end: 0.77 }]
       }
     },
     {
@@ -61,7 +85,8 @@
       heightNum: 5, 
       scrollHeight: 0,
       objs: {
-        container: document.querySelector('#section-scroll-4')
+        container: document.querySelector('#section-scroll-4'),
+        canvasCaption: document.querySelector('#section-scroll-4 .text-desc')
       }
     }
   ]
@@ -129,7 +154,6 @@
 
     switch (currentScene) {
       case 0:
-        // console.log('1 play')
         // let text1_opacity_0 = values.text1_opacity[0];
         // let text1_opacity_1 = values.text1_opacity[1];
         // console.log(text1_opacity_0, text1_opacity_1)
@@ -162,15 +186,39 @@
           objs.text4.style.opacity = calcValues(values.text4_opacity_fadeOut, currentScrollY);
           objs.text4.style.transform = `translate3d(0, ${calcValues(values.text4_translateY_slideOut, currentScrollY)}%, 0)`;
         }
+
         break;
-      case 1:
-        // console.log('2 play')
-        break;
+      
       case 2:
-        // console.log('3 play')
+        if (scrollRatio <= 0.25) {
+          objs.text1.style.opacity = calcValues(values.text1_opacity_fadeIn, currentScrollY);
+          objs.text1.style.transform = `translate3d(0, ${calcValues(values.text1_translateY_slideIn, currentScrollY)}%, 0)`;
+        } else {
+          objs.text1.style.opacity = calcValues(values.text1_opacity_fadeOut, currentScrollY);
+          objs.text1.style.transform = `translate3d(0, ${calcValues(values.text1_translateY_slideOut, currentScrollY)}%, 0)`;
+        }
+        if (scrollRatio <= 0.57) {
+          objs.text2.style.transform = `translate3d(0, ${calcValues(values.text2_translateY_slideIn, currentScrollY)}%, 0)`;
+          objs.text2.style.opacity = calcValues(values.text2_opacity_fadeIn, currentScrollY);
+          objs.pin1.style.transform = `scaleY(${calcValues(values.pin1_scaleY, currentScrollY)})`;
+        } else {
+          objs.text2.style.transform = `translate3d(0, ${calcValues(values.text2_translateY_slideOut, currentScrollY)}%, 0)`;
+          objs.text2.style.opacity = calcValues(values.text2_opacity_fadeOut, currentScrollY);
+          objs.pin1.style.transform = `scaleY(${calcValues(values.pin1_scaleY, currentScrollY)})`;
+        }
+        if (scrollRatio <= 0.83) {
+          objs.text3.style.transform = `translate3d(0, ${calcValues(values.text3_translateY_slideIn, currentScrollY)}%, 0)`;
+          objs.text3.style.opacity = calcValues(values.text3_opacity_fadeIn, currentScrollY);
+          objs.pin2.style.transform = `scaleY(${calcValues(values.pin2_scaleY, currentScrollY)})`;
+        } else {
+          objs.text3.style.transform = `translate3d(0, ${calcValues(values.text3_translateY_slideOut, currentScrollY)}%, 0)`;
+          objs.text3.style.opacity = calcValues(values.text3_opacity_fadeOut, currentScrollY);
+          objs.pin2.style.transform = `scaleY(${calcValues(values.pin2_scaleY, currentScrollY)})`;
+        }
+
         break;
+      
       case 3:
-        // console.log('4 play')
         break;
     }
   }

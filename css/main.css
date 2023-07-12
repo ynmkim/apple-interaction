@@ -16,6 +16,13 @@ body {
   padding: 0 1rem;
 }
 
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
 .lnb {
   border-bottom: 1px solid #ddd;
 }
@@ -52,6 +59,7 @@ body {
 
 .section-scroll {
   padding-top: 50vh;
+  border: 3px solid red;
 }
 
 .box-text p:not(.text-desc) {
@@ -79,7 +87,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 3em;
+  top: 40vh;
+  /* top:50%; */
+  /* -webkit-transform: translateY(-50%); */
+  /* transform: translateY(-50%); */
+  /* height: 3em; */
   font-size: 2.5rem;
   text-align: center;
 }
@@ -88,6 +100,9 @@ body {
   font-size: 4rem;
 }
 
+#section-scroll-2 {
+  padding: 80px 0;
+}
 #section-scroll-2 .text-desc {
   font-size: 1.2rem;
   color: #888;
@@ -99,6 +114,17 @@ body {
   /* 현재 폰트사이즈 0.2배 20% */
   font-size: 3rem;
 }
+
+#section-scroll-3 .box-text-2 {
+  top: 10%;
+  left: 40%;
+}
+
+#section-scroll-3 .box-text-3 {
+  top: 15%;
+  left: 45%;
+}
+
 #section-scroll-3 .text-heading {
   font-size: 3.5rem;
 }
@@ -137,9 +163,10 @@ body {
 .elemt-sticky {
   display: none !important;
   position: fixed;
-  top: 0;
+  /* top: 0; */
   left: 0;
   width: 100%;
+  opacity: 0;
 }
 
 #show-scene-1 #section-scroll-1 .elemt-sticky,
@@ -164,6 +191,15 @@ body {
 
   #section-scroll-2 .text-emphasis {
     font-size: 6rem;
+  }
+
+  #section-scroll-3 .box-text-2 {
+    top: 20%;
+    left: 53%;
+  }
+
+  #section-scroll-3 .box-text-3 {
+    left: 55%;
   }
 
   #section-scroll-3 .text-heading {

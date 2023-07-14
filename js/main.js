@@ -15,9 +15,15 @@
         text1: document.querySelector('#section-scroll-1 .box-text-1'),
         text2: document.querySelector('#section-scroll-1 .box-text-2'),
         text3: document.querySelector('#section-scroll-1 .box-text-3'),
-        text4: document.querySelector('#section-scroll-1 .box-text-4')
+        text4: document.querySelector('#section-scroll-1 .box-text-4'),
+        canvas: document.querySelector('#video-canvas-1'),
+        context: document.querySelector('#video-canvas-1').getContext('2d'),
+        videoImages: []
       },
-      values: {
+      values: { 
+        videoImageCount: 300, // 이미지 갯수
+        imageSquence: [0, 299], // 이미지 순서 값의 변화
+        canvas_opacity: [1, 0, { start: 0.9, end: 1 }],
         text1_opacity_fadeIn: [0, 1, { start: 0.1, end: 0.2 }], // 10% ~ 20% 구간
         text1_opacity_fadeOut: [1, 0, { start: 0.25, end: 0.3 }],
         text1_translateY_slideIn: [20, 0, { start: 0.1, end: 0.2 }],
@@ -55,14 +61,20 @@
         text2: document.querySelector('#section-scroll-3 .box-text-2'),
         text3: document.querySelector('#section-scroll-3 .box-text-3'),
         pin1: document.querySelector('#section-scroll-3 .box-text-2 .pin'),
-        pin2: document.querySelector('#section-scroll-3 .box-text-3 .pin')
+        pin2: document.querySelector('#section-scroll-3 .box-text-3 .pin'),
+        canvas: document.querySelector('#video-canvas-3'),
+        context: document.querySelector('#video-canvas-3').getContext('2d'),
+        videoImages: []
       },
       values: {
+        videoImageCount: 960, // 이미지 갯수
+        imageSquence: [0, 959], // 이미지 순서 값의 변화
+        canvas_opacity_fadeIn: [0, 1, { start: 0, end: 0.05 }],
+        canvas_opacity_fadeOut: [1, 0, { start: 0.95, end: 1 }],
         text1_opacity_fadeIn: [0, 1, { start: 0.15, end: 0.2 }], // 15% ~ 20% 구간
         text1_opacity_fadeOut: [1, 0, { start: 0.3, end: 0.35 }],
         text1_translateY_slideIn: [20, 0, { start: 0.15, end: 0.2 }],
         text1_translateY_slideOut: [0, -20, { start: 0.3, end: 0.35 }],
-
         text2_opacity_fadeIn: [0, 1, { start: 0.5, end: 0.55 }], // 50% ~ 55% 구간
         text2_opacity_fadeOut: [1, 0, { start: 0.58, end: 0.63 }],
         text2_translateY_slideIn: [30, 0, { start: 0.5, end: 0.55 }],
@@ -70,7 +82,6 @@
         pin1_scaleY: [0.5, 1, { start: 0.5, end: 0.55 }],
         pin1_opacity_fadeIn: [0, 1, { start: 0.5, end: 0.55 }],
         pin1_opacity_fadeOut: [1, 0, { start: 0.58, end: 0.63 }],
-
         text3_opacity_fadeIn: [0, 1, { start: 0.72, end: 0.77 }], // 72% ~ 77% 구간
         text3_opacity_fadeOut: [1, 0, { start: 0.85, end: 0.9 }],
         text3_translateY_slideIn: [30, 0, { start: 0.72, end: 0.77 }],
@@ -90,6 +101,24 @@
       }
     }
   ]
+
+  function setCanvasImages() {
+    let imgElemt;
+    for (let i = 0; i < sceneInfo[0].values.videoImageCount; i++) {
+      imgElemt = new Image();
+      imgElemt.src = `./video/001/IMG_${6726 + i}.JPG`;
+      sceneInfo[0].objs.videoImages.push(imgElemt);
+    }
+
+    let imgElemt2;
+    for (let i = 0; i < sceneInfo[2].values.videoImageCount; i++) {
+      imgElemt2 = new Image();
+      imgElemt2.src = `./video/002/IMG_${7027 + i}.JPG`;
+      sceneInfo[2].objs.videoImages.push(imgElemt2);
+    }
+  }
+
+  setCanvasImages();
 
   function setLayout() {
     // 각 스크롤 섹션의 높이 세팅
@@ -113,7 +142,10 @@
       }
     }
 
-    document.body.setAttribute('id',`show-scene-${currentScene + 1}`)
+    document.body.setAttribute('id', `show-scene-${currentScene + 1}`)
+    const heightRatio = window.innerHeight / 1080;
+    sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`
+    sceneInfo[2].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`
   }
 
   function calcValues(values, currentScrollY) { 
@@ -157,7 +189,12 @@
         // let text1_opacity_0 = values.text1_opacity[0];
         // let text1_opacity_1 = values.text1_opacity[1];
         // console.log(text1_opacity_0, text1_opacity_1)
-        // console.log(text1_opacity_fadeIn) 
+        // console.log(text1_opacity_fadeIn)
+
+        let sequence = Math.round(calcValues(values.imageSquence, currentScrollY));
+        objs.context.drawImage(objs.videoImages[sequence], 0, 0);
+        objs.canvas.style.opacity = calcValues(values.canvas_opacity, currentScrollY);
+
         if (scrollRatio <= 0.22) {
           objs.text1.style.opacity = calcValues(values.text1_opacity_fadeIn, currentScrollY);
           objs.text1.style.transform = `translateY(${calcValues(values.text1_translateY_slideIn, currentScrollY)}%)`;
@@ -186,10 +223,18 @@
           objs.text4.style.opacity = calcValues(values.text4_opacity_fadeOut, currentScrollY);
           objs.text4.style.transform = `translate3d(0, ${calcValues(values.text4_translateY_slideOut, currentScrollY)}%, 0)`;
         }
-
         break;
       
       case 2:
+        let sequence2 = Math.round(calcValues(values.imageSquence, currentScrollY));
+        objs.context.drawImage(objs.videoImages[sequence2], 0, 0);
+
+        if (scrollRatio <= 0.5) {
+          objs.canvas.style.opacity = calcValues(values.canvas_opacity_fadeIn, currentScrollY);
+        } else {
+          objs.canvas.style.opacity = calcValues(values.canvas_opacity_fadeOut, currentScrollY);
+        }
+
         if (scrollRatio <= 0.25) {
           objs.text1.style.opacity = calcValues(values.text1_opacity_fadeIn, currentScrollY);
           objs.text1.style.transform = `translate3d(0, ${calcValues(values.text1_translateY_slideIn, currentScrollY)}%, 0)`;
@@ -215,7 +260,6 @@
           objs.text3.style.opacity = calcValues(values.text3_opacity_fadeOut, currentScrollY);
           objs.pin2.style.transform = `scaleY(${calcValues(values.pin2_scaleY, currentScrollY)})`;
         }
-
         break;
       
       case 3:
@@ -259,7 +303,11 @@
   });
 
   // window.addEventListener('DOMContentLoaded', setLayout);
-  window.addEventListener('load', setLayout);
+  window.addEventListener('load', () => {   
+    setLayout();
+    sceneInfo[0].objs.context.drawImage(sceneInfo[0].objs.videoImages[0], 0, 0);
+  });
+
   window.addEventListener('resize', setLayout);
 
 })();
